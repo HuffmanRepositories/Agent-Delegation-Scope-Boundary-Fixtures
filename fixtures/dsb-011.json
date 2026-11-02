@@ -5,9 +5,9 @@
   "status": "draft",
   "description": "Synthetic case: delegation record omits scope and no default policy grants access.",
   "policy_assumptions": [
-    "delegation record omits scope and no default policy grants access",
-    "All identities, resources, and grants are fictional.",
-    "No implicit permission expansion is assumed."
+    "Parent has a read grant on resource-A.",
+    "Child delegation record is missing its resource scope.",
+    "No default policy says that absent scope means unrestricted access."
   ],
   "delegation_chain": [
     {
@@ -15,19 +15,16 @@
       "grant": [
         "read:resource-A"
       ],
-      "constraints": [
-        "scope is limited by parent authority"
-      ]
+      "scope": "resource-A"
     },
     {
       "principal": "child-agent",
       "delegated_from": "parent-agent",
       "grant": [
-        "read:resource-A"
+        "read"
       ],
-      "constraints": [
-        "inherits parent constraints"
-      ]
+      "scope": null,
+      "scope_missing": true
     }
   ],
   "request": {
@@ -35,7 +32,8 @@
     "action": "read",
     "resource": "resource-A",
     "context": {
-      "scenario_id": "DSB-011"
+      "scenario_id": "DSB-011",
+      "delegated_scope_present": false
     }
   },
   "expected": {
