@@ -1,5 +1,8 @@
 # Agent Delegation Scope Boundary Fixtures
 
+[Start here](START-HERE.md) · [AI agent guidance](AGENTS.md)
+
+
 A small, implementation-neutral corpus of **synthetic draft fixtures** for reviewing authority boundaries when AI agents delegate work to subagents and tools.
 
 The corpus focuses on whether delegated authority stays within the parent's permitted scope across nested delegation, identity changes, tenant boundaries, approvals, expiry/revocation, and audit records.
