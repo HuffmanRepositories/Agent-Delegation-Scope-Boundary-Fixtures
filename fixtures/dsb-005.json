@@ -5,29 +5,34 @@
   "status": "draft",
   "description": "Synthetic case: child-A has read access; child-B has write access; grants are intentionally separate.",
   "policy_assumptions": [
-    "child-A has read access; child-B has write access; grants are intentionally separate",
-    "All identities, resources, and grants are fictional.",
-    "No implicit permission expansion is assumed."
+    "Parent may read and write shared-resource.",
+    "child-A receives read only; child-B receives write only.",
+    "Sibling grants are not implicitly unioned or borrowed."
   ],
   "delegation_chain": [
     {
       "principal": "parent-agent",
       "grant": [
-        "read:resource-A"
+        "read:shared-resource",
+        "write:shared-resource"
       ],
-      "constraints": [
-        "scope is limited by parent authority"
-      ]
+      "scope": "shared-resource"
     },
     {
-      "principal": "child-agent",
+      "principal": "child-A",
       "delegated_from": "parent-agent",
       "grant": [
-        "read:resource-A"
+        "read:shared-resource"
       ],
-      "constraints": [
-        "inherits parent constraints"
-      ]
+      "scope": "shared-resource"
+    },
+    {
+      "principal": "child-B",
+      "delegated_from": "parent-agent",
+      "grant": [
+        "write:shared-resource"
+      ],
+      "scope": "shared-resource"
     }
   ],
   "request": {
@@ -35,7 +40,8 @@
     "action": "write",
     "resource": "shared-resource",
     "context": {
-      "scenario_id": "DSB-005"
+      "scenario_id": "DSB-005",
+      "sibling": "child-B"
     }
   },
   "expected": {
