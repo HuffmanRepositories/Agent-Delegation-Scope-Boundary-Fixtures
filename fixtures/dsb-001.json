@@ -1,0 +1,49 @@
+{
+  "id": "DSB-001",
+  "title": "Child grant exceeds parent scope",
+  "category": "authority-attenuation",
+  "status": "draft",
+  "description": "Synthetic case: parent can read resource-A only; child is issued read+write on A.",
+  "policy_assumptions": [
+    "parent can read resource-A only; child is issued read+write on A",
+    "All identities, resources, and grants are fictional.",
+    "No implicit permission expansion is assumed."
+  ],
+  "delegation_chain": [
+    {
+      "principal": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "scope is limited by parent authority"
+      ]
+    },
+    {
+      "principal": "child-agent",
+      "delegated_from": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "inherits parent constraints"
+      ]
+    }
+  ],
+  "request": {
+    "actor": "child-agent",
+    "action": "write",
+    "resource": "resource-A",
+    "context": {
+      "scenario_id": "DSB-001"
+    }
+  },
+  "expected": {
+    "decision": "deny",
+    "rationale": "Child authority must not exceed the parent's permitted scope."
+  },
+  "review_notes": [
+    "Review against the target system's actual policy and identity semantics.",
+    "This fixture is illustrative; it is not an implementation conformance result."
+  ]
+}
