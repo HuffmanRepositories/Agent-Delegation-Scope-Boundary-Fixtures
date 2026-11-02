@@ -24,7 +24,7 @@ The corpus focuses on whether delegated authority stays within the parent's perm
 - `scripts/validate_fixtures.py`: offline structural validator
 - `tests/`: validator tests
 
-## Core review principle
+## Experimental policy-model tests\n\nA [simplified synthetic delegation model](docs/synthetic-delegation-model.md) tests action/resource attenuation, tenant and issuer boundaries, expiry and parent revocation. This is a model test—not an identity system, production policy engine, or security conformance proof.\n\n## Core review principle
 
 Delegation should not silently expand authority. A child agent's effective permissions should remain constrained by the applicable parent authority, explicit delegation grant, target/resource boundaries, and any time or approval constraints. The exact enforcement model is implementation-specific and must be reviewed against its own policy semantics.
 
