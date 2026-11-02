@@ -5,9 +5,9 @@
   "status": "draft",
   "description": "Synthetic case: delegation was revoked or its validity window elapsed before request.",
   "policy_assumptions": [
-    "delegation was revoked or its validity window elapsed before request",
-    "All identities, resources, and grants are fictional.",
-    "No implicit permission expansion is assumed."
+    "Delegation was revoked before request time.",
+    "Requests after revocation must not use the old grant unless an explicit grandfathering rule applies.",
+    "No grandfathering rule is supplied."
   ],
   "delegation_chain": [
     {
@@ -15,9 +15,7 @@
       "grant": [
         "read:resource-A"
       ],
-      "constraints": [
-        "scope is limited by parent authority"
-      ]
+      "scope": "resource-A"
     },
     {
       "principal": "child-agent",
@@ -25,9 +23,9 @@
       "grant": [
         "read:resource-A"
       ],
-      "constraints": [
-        "inherits parent constraints"
-      ]
+      "scope": "resource-A",
+      "grant_state": "revoked",
+      "revoked_at": "t1"
     }
   ],
   "request": {
@@ -35,7 +33,9 @@
     "action": "read",
     "resource": "resource-A",
     "context": {
-      "scenario_id": "DSB-006"
+      "scenario_id": "DSB-006",
+      "request_time": "t2",
+      "revoked_at": "t1"
     }
   },
   "expected": {
