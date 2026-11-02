@@ -5,29 +5,35 @@
   "status": "draft",
   "description": "Synthetic case: parent allows read on dataset-1; child may delegate only within its inherited grant.",
   "policy_assumptions": [
-    "parent allows read on dataset-1; child may delegate only within its inherited grant",
-    "All identities, resources, and grants are fictional.",
-    "No implicit permission expansion is assumed."
+    "Parent grants child read access to dataset-1 and permits further delegation within that exact scope.",
+    "Grandchild receives no broader action/resource scope.",
+    "The request is valid within the inherited scope."
   ],
   "delegation_chain": [
     {
       "principal": "parent-agent",
       "grant": [
-        "read:resource-A"
+        "read:dataset-1"
       ],
-      "constraints": [
-        "scope is limited by parent authority"
-      ]
+      "scope": "dataset-1",
+      "may_delegate": true
     },
     {
       "principal": "child-agent",
       "delegated_from": "parent-agent",
       "grant": [
-        "read:resource-A"
+        "read:dataset-1"
       ],
-      "constraints": [
-        "inherits parent constraints"
-      ]
+      "scope": "dataset-1",
+      "may_delegate": true
+    },
+    {
+      "principal": "grandchild-agent",
+      "delegated_from": "child-agent",
+      "grant": [
+        "read:dataset-1"
+      ],
+      "scope": "dataset-1"
     }
   ],
   "request": {
