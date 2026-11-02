@@ -30,6 +30,7 @@ Delegation should not silently expand authority. A child agent's effective permi
 ```bash
 python -m unittest discover -s tests -v
 python scripts/validate_fixtures.py
+python scripts/validate_semantics.py
 ```
 
 ## References
