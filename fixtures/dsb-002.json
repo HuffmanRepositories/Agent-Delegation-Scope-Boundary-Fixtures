@@ -1,0 +1,49 @@
+{
+  "id": "DSB-002",
+  "title": "Read-only restriction dropped at handoff",
+  "category": "action-restriction",
+  "status": "draft",
+  "description": "Synthetic case: parent delegation explicitly allows read only.",
+  "policy_assumptions": [
+    "parent delegation explicitly allows read only",
+    "All identities, resources, and grants are fictional.",
+    "No implicit permission expansion is assumed."
+  ],
+  "delegation_chain": [
+    {
+      "principal": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "scope is limited by parent authority"
+      ]
+    },
+    {
+      "principal": "child-agent",
+      "delegated_from": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "inherits parent constraints"
+      ]
+    }
+  ],
+  "request": {
+    "actor": "child-agent",
+    "action": "delete",
+    "resource": "document-7",
+    "context": {
+      "scenario_id": "DSB-002"
+    }
+  },
+  "expected": {
+    "decision": "deny",
+    "rationale": "The read-only restriction survives delegation."
+  },
+  "review_notes": [
+    "Review against the target system's actual policy and identity semantics.",
+    "This fixture is illustrative; it is not an implementation conformance result."
+  ]
+}
