@@ -5,9 +5,9 @@
   "status": "draft",
   "description": "Synthetic case: delegated context permits read-only; downstream API receives a write request.",
   "policy_assumptions": [
-    "delegated context permits read-only; downstream API receives a write request",
-    "All identities, resources, and grants are fictional.",
-    "No implicit permission expansion is assumed."
+    "Parent and child grants are read-only on resource-A.",
+    "The downstream service receives the child identity and must evaluate the effective delegated grant.",
+    "No separate write approval or elevation exists."
   ],
   "delegation_chain": [
     {
@@ -15,9 +15,7 @@
       "grant": [
         "read:resource-A"
       ],
-      "constraints": [
-        "scope is limited by parent authority"
-      ]
+      "scope": "resource-A"
     },
     {
       "principal": "child-agent",
@@ -25,9 +23,7 @@
       "grant": [
         "read:resource-A"
       ],
-      "constraints": [
-        "inherits parent constraints"
-      ]
+      "scope": "resource-A"
     }
   ],
   "request": {
@@ -35,7 +31,8 @@
     "action": "write",
     "resource": "resource-A",
     "context": {
-      "scenario_id": "DSB-008"
+      "scenario_id": "DSB-008",
+      "authorization_check_required": true
     }
   },
   "expected": {
