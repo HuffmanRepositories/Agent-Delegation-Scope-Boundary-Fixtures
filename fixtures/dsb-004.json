@@ -5,29 +5,25 @@
   "status": "draft",
   "description": "Synthetic case: parent grant is tenant-alpha/workspace-1 only.",
   "policy_assumptions": [
-    "parent grant is tenant-alpha/workspace-1 only",
-    "All identities, resources, and grants are fictional.",
-    "No implicit permission expansion is assumed."
+    "Parent delegation is constrained to tenant-alpha/workspace-1.",
+    "Tenant/workspace identifiers are part of the authorization resource boundary.",
+    "No cross-tenant override is present."
   ],
   "delegation_chain": [
     {
       "principal": "parent-agent",
       "grant": [
-        "read:resource-A"
+        "read:tenant-alpha/workspace-1/*"
       ],
-      "constraints": [
-        "scope is limited by parent authority"
-      ]
+      "scope": "tenant-alpha/workspace-1"
     },
     {
       "principal": "child-agent",
       "delegated_from": "parent-agent",
       "grant": [
-        "read:resource-A"
+        "read:tenant-alpha/workspace-1/*"
       ],
-      "constraints": [
-        "inherits parent constraints"
-      ]
+      "scope": "tenant-alpha/workspace-1"
     }
   ],
   "request": {
