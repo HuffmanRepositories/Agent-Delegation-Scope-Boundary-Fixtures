@@ -5,29 +5,33 @@
   "status": "draft",
   "description": "Synthetic case: user grants agent access only to project-red; app identity has broad service permissions.",
   "policy_assumptions": [
-    "user grants agent access only to project-red; app identity has broad service permissions",
-    "All identities, resources, and grants are fictional.",
-    "No implicit permission expansion is assumed."
+    "User-authorized delegation is limited to project-red.",
+    "Agent application identity may have ambient broader permissions, but those do not expand this user delegation.",
+    "Authorization evaluates delegated user scope, not ambient application privileges."
   ],
   "delegation_chain": [
     {
-      "principal": "parent-agent",
+      "principal": "delegating-user",
       "grant": [
-        "read:resource-A"
+        "read:project-red/*"
       ],
-      "constraints": [
-        "scope is limited by parent authority"
-      ]
+      "scope": "project-red"
     },
     {
-      "principal": "child-agent",
+      "principal": "parent-agent",
+      "delegated_from": "delegating-user",
+      "grant": [
+        "read:project-red/*"
+      ],
+      "scope": "project-red"
+    },
+    {
+      "principal": "agent-child",
       "delegated_from": "parent-agent",
       "grant": [
-        "read:resource-A"
+        "read:project-red/*"
       ],
-      "constraints": [
-        "inherits parent constraints"
-      ]
+      "scope": "project-red"
     }
   ],
   "request": {
@@ -35,7 +39,11 @@
     "action": "read",
     "resource": "project-blue/report",
     "context": {
-      "scenario_id": "DSB-003"
+      "scenario_id": "DSB-003",
+      "application_ambient_grant": [
+        "read:*"
+      ],
+      "delegated_user_scope": "project-red"
     }
   },
   "expected": {
