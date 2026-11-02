@@ -54,6 +54,6 @@ def validate():
 if __name__ == "__main__":
     errors, count = validate()
     if errors:
-        print("\\n".join(errors), file=sys.stderr)
+        print("\n".join(errors), file=sys.stderr)
         sys.exit(1)
     print(f"Validated {count} delegation boundary fixture(s) (structure only).")
