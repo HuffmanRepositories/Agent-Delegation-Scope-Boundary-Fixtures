@@ -5,9 +5,9 @@
   "status": "draft",
   "description": "Synthetic case: a nested action is permitted but audit record contains only leaf identity.",
   "policy_assumptions": [
-    "a nested action is permitted but audit record contains only leaf identity",
-    "All identities, resources, and grants are fictional.",
-    "No implicit permission expansion is assumed."
+    "The requested read is otherwise authorized by the parent and child grants.",
+    "The audit record is required to preserve the delegation ancestry.",
+    "An audit record containing only the leaf identity is insufficient to establish authority lineage."
   ],
   "delegation_chain": [
     {
@@ -15,9 +15,7 @@
       "grant": [
         "read:resource-A"
       ],
-      "constraints": [
-        "scope is limited by parent authority"
-      ]
+      "scope": "resource-A"
     },
     {
       "principal": "child-agent",
@@ -25,9 +23,7 @@
       "grant": [
         "read:resource-A"
       ],
-      "constraints": [
-        "inherits parent constraints"
-      ]
+      "scope": "resource-A"
     }
   ],
   "request": {
@@ -35,7 +31,12 @@
     "action": "read",
     "resource": "resource-A",
     "context": {
-      "scenario_id": "DSB-010"
+      "scenario_id": "DSB-010",
+      "audit_record": {
+        "actor": "child-agent",
+        "delegation_ancestry": [],
+        "missing_parent_chain": true
+      }
     }
   },
   "expected": {
