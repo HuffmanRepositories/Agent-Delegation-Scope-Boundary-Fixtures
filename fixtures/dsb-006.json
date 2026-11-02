@@ -1,0 +1,49 @@
+{
+  "id": "DSB-006",
+  "title": "Revoked or expired grant accepted",
+  "category": "delegation-lifecycle",
+  "status": "draft",
+  "description": "Synthetic case: delegation was revoked or its validity window elapsed before request.",
+  "policy_assumptions": [
+    "delegation was revoked or its validity window elapsed before request",
+    "All identities, resources, and grants are fictional.",
+    "No implicit permission expansion is assumed."
+  ],
+  "delegation_chain": [
+    {
+      "principal": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "scope is limited by parent authority"
+      ]
+    },
+    {
+      "principal": "child-agent",
+      "delegated_from": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "inherits parent constraints"
+      ]
+    }
+  ],
+  "request": {
+    "actor": "child-agent",
+    "action": "read",
+    "resource": "resource-A",
+    "context": {
+      "scenario_id": "DSB-006"
+    }
+  },
+  "expected": {
+    "decision": "deny",
+    "rationale": "A revoked or expired delegation is not valid authority."
+  },
+  "review_notes": [
+    "Review against the target system's actual policy and identity semantics.",
+    "This fixture is illustrative; it is not an implementation conformance result."
+  ]
+}
