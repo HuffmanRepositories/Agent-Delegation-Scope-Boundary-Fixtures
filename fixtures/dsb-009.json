@@ -1,0 +1,49 @@
+{
+  "id": "DSB-009",
+  "title": "Approval reused for different operation",
+  "category": "approval-binding",
+  "status": "draft",
+  "description": "Synthetic case: approval is bound to export report-1, not delete report-1 or export report-2.",
+  "policy_assumptions": [
+    "approval is bound to export report-1, not delete report-1 or export report-2",
+    "All identities, resources, and grants are fictional.",
+    "No implicit permission expansion is assumed."
+  ],
+  "delegation_chain": [
+    {
+      "principal": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "scope is limited by parent authority"
+      ]
+    },
+    {
+      "principal": "child-agent",
+      "delegated_from": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "inherits parent constraints"
+      ]
+    }
+  ],
+  "request": {
+    "actor": "child-agent",
+    "action": "delete",
+    "resource": "report-1",
+    "context": {
+      "scenario_id": "DSB-009"
+    }
+  },
+  "expected": {
+    "decision": "deny",
+    "rationale": "Approval must be bound to its approved operation and relevant context."
+  },
+  "review_notes": [
+    "Review against the target system's actual policy and identity semantics.",
+    "This fixture is illustrative; it is not an implementation conformance result."
+  ]
+}
