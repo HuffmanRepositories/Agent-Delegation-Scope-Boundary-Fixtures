@@ -1,0 +1,49 @@
+{
+  "id": "DSB-008",
+  "title": "Downstream authorization check bypassed",
+  "category": "enforcement-point",
+  "status": "draft",
+  "description": "Synthetic case: delegated context permits read-only; downstream API receives a write request.",
+  "policy_assumptions": [
+    "delegated context permits read-only; downstream API receives a write request",
+    "All identities, resources, and grants are fictional.",
+    "No implicit permission expansion is assumed."
+  ],
+  "delegation_chain": [
+    {
+      "principal": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "scope is limited by parent authority"
+      ]
+    },
+    {
+      "principal": "child-agent",
+      "delegated_from": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "inherits parent constraints"
+      ]
+    }
+  ],
+  "request": {
+    "actor": "child-agent",
+    "action": "write",
+    "resource": "resource-A",
+    "context": {
+      "scenario_id": "DSB-008"
+    }
+  },
+  "expected": {
+    "decision": "deny",
+    "rationale": "A downstream authorization boundary must independently enforce the effective grant."
+  },
+  "review_notes": [
+    "Review against the target system's actual policy and identity semantics.",
+    "This fixture is illustrative; it is not an implementation conformance result."
+  ]
+}
