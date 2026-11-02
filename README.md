@@ -49,3 +49,7 @@ These references are background material, not endorsements or proof that this co
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Please do not submit real credentials, user data, production policy, or exploit payloads.
+
+## Ecosystem directory
+
+This project is part of the [HuffmanRepositories public ecosystem](https://github.com/HuffmanRepositories/Huffman-Ecosystem-Root). Use the directory for project routing, human and AI onboarding, shared terminology, governance, and related workstreams. This repository's own README and specifications remain authoritative for its scope, maturity, and validation status.
