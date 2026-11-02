@@ -11,6 +11,9 @@ This repository reviews authority-boundary scenarios through offline fixtures. I
 ## Before acting
 Read [START-HERE.md](START-HERE.md), [docs/fixture-format.md](docs/fixture-format.md), [docs/scope-boundary-taxonomy.md](docs/scope-boundary-taxonomy.md), fixture status, and the review checklist.
 
+## Companion routing
+For cross-cutting delegation scenarios, consult [P12 retry/idempotency](https://github.com/HuffmanRepositories/Agent-Tool-Retry-Idempotency-Fixtures) when side-effecting tool attempts or uncertain outcomes are involved, [P14 budgets](https://github.com/HuffmanRepositories/Agent-Delegated-Budget-Enforcement-Fixtures) when authority includes spending limits, and [P15 stop semantics](https://github.com/HuffmanRepositories/Huffman-Ecosystem-Root/tree/main/p15) when stop/cancellation must propagate. These remain synthetic references, not authorization or runtime implementations.
+
 ## Safety and semantics
 - Keep all cases synthetic and offline.
 - Never add credentials, personal data, production policy, or exploit payloads.
