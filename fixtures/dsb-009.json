@@ -5,29 +5,27 @@
   "status": "draft",
   "description": "Synthetic case: approval is bound to export report-1, not delete report-1 or export report-2.",
   "policy_assumptions": [
-    "approval is bound to export report-1, not delete report-1 or export report-2",
-    "All identities, resources, and grants are fictional.",
-    "No implicit permission expansion is assumed."
+    "Parent and child may request export or delete on report-1, but approval is required for the operation.",
+    "Approval approved export report-1 only.",
+    "Approval cannot be reused for delete or a different target."
   ],
   "delegation_chain": [
     {
       "principal": "parent-agent",
       "grant": [
-        "read:resource-A"
+        "export:report-1",
+        "delete:report-1"
       ],
-      "constraints": [
-        "scope is limited by parent authority"
-      ]
+      "scope": "report-1"
     },
     {
       "principal": "child-agent",
       "delegated_from": "parent-agent",
       "grant": [
-        "read:resource-A"
+        "export:report-1",
+        "delete:report-1"
       ],
-      "constraints": [
-        "inherits parent constraints"
-      ]
+      "scope": "report-1"
     }
   ],
   "request": {
@@ -35,7 +33,10 @@
     "action": "delete",
     "resource": "report-1",
     "context": {
-      "scenario_id": "DSB-009"
+      "scenario_id": "DSB-009",
+      "approval_id": "approval-9",
+      "approved_action": "export",
+      "approved_resource": "report-1"
     }
   },
   "expected": {
