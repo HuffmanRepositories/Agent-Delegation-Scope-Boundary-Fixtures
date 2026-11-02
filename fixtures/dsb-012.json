@@ -5,9 +5,9 @@
   "status": "draft",
   "description": "Synthetic case: child has read access to resource-A and attempts to delegate read+write to grandchild.",
   "policy_assumptions": [
-    "child has read access to resource-A and attempts to delegate read+write to grandchild",
-    "All identities, resources, and grants are fictional.",
-    "No implicit permission expansion is assumed."
+    "Parent grants read only on resource-A.",
+    "Child receives read only and cannot create write authority for a grandchild.",
+    "The grandchild's presented grant is overbroad and must be rejected."
   ],
   "delegation_chain": [
     {
@@ -15,9 +15,8 @@
       "grant": [
         "read:resource-A"
       ],
-      "constraints": [
-        "scope is limited by parent authority"
-      ]
+      "scope": "resource-A",
+      "may_delegate": true
     },
     {
       "principal": "child-agent",
@@ -25,9 +24,18 @@
       "grant": [
         "read:resource-A"
       ],
-      "constraints": [
-        "inherits parent constraints"
-      ]
+      "scope": "resource-A",
+      "may_delegate": true
+    },
+    {
+      "principal": "grandchild-agent",
+      "delegated_from": "child-agent",
+      "grant": [
+        "read:resource-A",
+        "write:resource-A"
+      ],
+      "scope": "resource-A",
+      "grant_state": "presented-overbroad"
     }
   ],
   "request": {
