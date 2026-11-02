@@ -1,0 +1,49 @@
+{
+  "id": "DSB-012",
+  "title": "Child delegates beyond its own grant",
+  "category": "nested-delegation",
+  "status": "draft",
+  "description": "Synthetic case: child has read access to resource-A and attempts to delegate read+write to grandchild.",
+  "policy_assumptions": [
+    "child has read access to resource-A and attempts to delegate read+write to grandchild",
+    "All identities, resources, and grants are fictional.",
+    "No implicit permission expansion is assumed."
+  ],
+  "delegation_chain": [
+    {
+      "principal": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "scope is limited by parent authority"
+      ]
+    },
+    {
+      "principal": "child-agent",
+      "delegated_from": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "inherits parent constraints"
+      ]
+    }
+  ],
+  "request": {
+    "actor": "grandchild-agent",
+    "action": "write",
+    "resource": "resource-A",
+    "context": {
+      "scenario_id": "DSB-012"
+    }
+  },
+  "expected": {
+    "decision": "deny",
+    "rationale": "A child may not delegate authority it does not itself possess."
+  },
+  "review_notes": [
+    "Review against the target system's actual policy and identity semantics.",
+    "This fixture is illustrative; it is not an implementation conformance result."
+  ]
+}
