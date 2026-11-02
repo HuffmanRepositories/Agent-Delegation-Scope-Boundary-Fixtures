@@ -28,6 +28,14 @@ The corpus focuses on whether delegated authority stays within the parent's perm
 
 A [simplified synthetic delegation model](docs/synthetic-delegation-model.md) tests action/resource attenuation, tenant and issuer boundaries, expiry and parent revocation. This is a model test—not an identity system, production policy engine, or security conformance proof.
 
+## Companion projects (when a scenario crosses boundaries)
+
+- [P12 — Tool Retry & Idempotency Fixtures](https://github.com/HuffmanRepositories/Agent-Tool-Retry-Idempotency-Fixtures) for tool effects, ambiguous outcomes, and retry/reconciliation behavior.
+- [P14 — Delegated Budget Enforcement Fixtures](https://github.com/HuffmanRepositories/Agent-Delegated-Budget-Enforcement-Fixtures) for child budget allocations and settlement constraints.
+- [P15 — User-Controlled Stop Reference Model](https://github.com/HuffmanRepositories/Huffman-Ecosystem-Root/tree/main/p15) for stop propagation and containment semantics.
+
+These are related synthetic fixture sets, not runtime dependencies. Use only the companion cases relevant to the authority scenario.
+
 ## Core review principle
 
 Delegation should not silently expand authority. A child agent's effective permissions should remain constrained by the applicable parent authority, explicit delegation grant, target/resource boundaries, and any time or approval constraints. The exact enforcement model is implementation-specific and must be reviewed against its own policy semantics.
