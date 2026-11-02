@@ -5,9 +5,9 @@
   "status": "draft",
   "description": "Synthetic case: parent can read resource-A only; child is issued read+write on A.",
   "policy_assumptions": [
-    "parent can read resource-A only; child is issued read+write on A",
-    "All identities, resources, and grants are fictional.",
-    "No implicit permission expansion is assumed."
+    "Parent effective grant is read-only on resource-A.",
+    "Child's presented delegation includes write, which exceeds the parent's grant.",
+    "Effective child authority must be attenuated by parent authority."
   ],
   "delegation_chain": [
     {
@@ -15,19 +15,17 @@
       "grant": [
         "read:resource-A"
       ],
-      "constraints": [
-        "scope is limited by parent authority"
-      ]
+      "scope": "resource-A"
     },
     {
       "principal": "child-agent",
       "delegated_from": "parent-agent",
       "grant": [
-        "read:resource-A"
+        "read:resource-A",
+        "write:resource-A"
       ],
-      "constraints": [
-        "inherits parent constraints"
-      ]
+      "scope": "resource-A",
+      "grant_state": "presented-overbroad"
     }
   ],
   "request": {
