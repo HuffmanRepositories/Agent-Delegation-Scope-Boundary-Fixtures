@@ -1,0 +1,49 @@
+{
+  "id": "DSB-007",
+  "title": "Nested delegation preserves restrictions",
+  "category": "nested-delegation",
+  "status": "draft",
+  "description": "Synthetic case: parent allows read on dataset-1; child may delegate only within its inherited grant.",
+  "policy_assumptions": [
+    "parent allows read on dataset-1; child may delegate only within its inherited grant",
+    "All identities, resources, and grants are fictional.",
+    "No implicit permission expansion is assumed."
+  ],
+  "delegation_chain": [
+    {
+      "principal": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "scope is limited by parent authority"
+      ]
+    },
+    {
+      "principal": "child-agent",
+      "delegated_from": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "inherits parent constraints"
+      ]
+    }
+  ],
+  "request": {
+    "actor": "grandchild-agent",
+    "action": "read",
+    "resource": "dataset-1",
+    "context": {
+      "scenario_id": "DSB-007"
+    }
+  },
+  "expected": {
+    "decision": "allow",
+    "rationale": "The nested request stays inside inherited action and resource scope."
+  },
+  "review_notes": [
+    "Review against the target system's actual policy and identity semantics.",
+    "This fixture is illustrative; it is not an implementation conformance result."
+  ]
+}
