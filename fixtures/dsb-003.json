@@ -1,0 +1,49 @@
+{
+  "id": "DSB-003",
+  "title": "Delegated user scope confused with app identity",
+  "category": "principal-identity",
+  "status": "draft",
+  "description": "Synthetic case: user grants agent access only to project-red; app identity has broad service permissions.",
+  "policy_assumptions": [
+    "user grants agent access only to project-red; app identity has broad service permissions",
+    "All identities, resources, and grants are fictional.",
+    "No implicit permission expansion is assumed."
+  ],
+  "delegation_chain": [
+    {
+      "principal": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "scope is limited by parent authority"
+      ]
+    },
+    {
+      "principal": "child-agent",
+      "delegated_from": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "inherits parent constraints"
+      ]
+    }
+  ],
+  "request": {
+    "actor": "agent-child",
+    "action": "read",
+    "resource": "project-blue/report",
+    "context": {
+      "scenario_id": "DSB-003"
+    }
+  },
+  "expected": {
+    "decision": "deny",
+    "rationale": "User delegation is not equivalent to the agent application's ambient identity."
+  },
+  "review_notes": [
+    "Review against the target system's actual policy and identity semantics.",
+    "This fixture is illustrative; it is not an implementation conformance result."
+  ]
+}
