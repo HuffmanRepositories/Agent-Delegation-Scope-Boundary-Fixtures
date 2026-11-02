@@ -1,6 +1,6 @@
 # Agent Delegation Scope Boundary Fixtures
 
-[Start here](START-HERE.md) · [AI agent guidance](AGENTS.md)
+[Start here](START-HERE.md) · [Whitepaper](WHITEPAPER.md) · [AI agent guidance](AGENTS.md)
 
 
 A small, implementation-neutral corpus of **synthetic draft fixtures** for reviewing authority boundaries when AI agents delegate work to subagents and tools.
