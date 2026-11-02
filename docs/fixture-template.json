@@ -1,0 +1,37 @@
+{
+  "id": "DSB-000",
+  "title": "Replace with scenario title",
+  "category": "authority-attenuation",
+  "status": "draft",
+  "description": "Synthetic scenario only.",
+  "policy_assumptions": [
+    "Explicit synthetic policy assumption."
+  ],
+  "delegation_chain": [
+    {
+      "principal": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ]
+    },
+    {
+      "principal": "child-agent",
+      "delegated_from": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ]
+    }
+  ],
+  "request": {
+    "actor": "child-agent",
+    "action": "read",
+    "resource": "resource-A"
+  },
+  "expected": {
+    "decision": "allow",
+    "rationale": "Within the stated synthetic scope."
+  },
+  "review_notes": [
+    "Implementation-specific semantics must be reviewed."
+  ]
+}
