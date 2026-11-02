@@ -1,0 +1,49 @@
+{
+  "id": "DSB-005",
+  "title": "Sibling permissions implicitly unioned",
+  "category": "sibling-isolation",
+  "status": "draft",
+  "description": "Synthetic case: child-A has read access; child-B has write access; grants are intentionally separate.",
+  "policy_assumptions": [
+    "child-A has read access; child-B has write access; grants are intentionally separate",
+    "All identities, resources, and grants are fictional.",
+    "No implicit permission expansion is assumed."
+  ],
+  "delegation_chain": [
+    {
+      "principal": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "scope is limited by parent authority"
+      ]
+    },
+    {
+      "principal": "child-agent",
+      "delegated_from": "parent-agent",
+      "grant": [
+        "read:resource-A"
+      ],
+      "constraints": [
+        "inherits parent constraints"
+      ]
+    }
+  ],
+  "request": {
+    "actor": "child-A",
+    "action": "write",
+    "resource": "shared-resource",
+    "context": {
+      "scenario_id": "DSB-005"
+    }
+  },
+  "expected": {
+    "decision": "deny",
+    "rationale": "One sibling cannot borrow another sibling's grant absent explicit authorization."
+  },
+  "review_notes": [
+    "Review against the target system's actual policy and identity semantics.",
+    "This fixture is illustrative; it is not an implementation conformance result."
+  ]
+}
