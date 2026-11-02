@@ -16,4 +16,5 @@ jobs:
         with:
           python-version: "3.12"
       - run: python scripts/validate_fixtures.py
+      - run: python scripts/validate_semantics.py
       - run: python -m unittest discover -s tests -v
