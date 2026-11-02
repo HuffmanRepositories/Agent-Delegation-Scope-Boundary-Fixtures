@@ -5,29 +5,27 @@
   "status": "draft",
   "description": "Synthetic case: parent delegation explicitly allows read only.",
   "policy_assumptions": [
-    "parent delegation explicitly allows read only",
-    "All identities, resources, and grants are fictional.",
-    "No implicit permission expansion is assumed."
+    "Parent grant is read-only on document-7.",
+    "Handoff attempts to add delete authority.",
+    "Parent restriction remains binding after handoff."
   ],
   "delegation_chain": [
     {
       "principal": "parent-agent",
       "grant": [
-        "read:resource-A"
+        "read:document-7"
       ],
-      "constraints": [
-        "scope is limited by parent authority"
-      ]
+      "scope": "document-7"
     },
     {
       "principal": "child-agent",
       "delegated_from": "parent-agent",
       "grant": [
-        "read:resource-A"
+        "read:document-7",
+        "delete:document-7"
       ],
-      "constraints": [
-        "inherits parent constraints"
-      ]
+      "scope": "document-7",
+      "grant_state": "presented-overbroad"
     }
   ],
   "request": {
